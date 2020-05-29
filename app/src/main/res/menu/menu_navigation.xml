@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        >
+    <item
+        android:title="@string/homepage"
+        android:icon="@drawable/home_48px"
+        android:checked="true"/>
+    <item
+        android:title="@string/profile"
+        android:icon="@drawable/waiter_48px"
+        />
+    <item
+        android:title="@string/menu"
+        android:icon="@drawable/food_and_wine_48px"
+        />
+    <item
+        android:title="@string/statiscal"
+        android:icon="@drawable/profit_48px"
+        />
+    <item
+        android:title="@string/setting"
+        android:icon="@drawable/settings_48px"
+        />
+    </group>
+</menu>

@@ -1,0 +1,76 @@
+package com.hoinguyen.uitcoffeeapp.Activity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
+import com.hoinguyen.uitcoffeeapp.R;
+
+
+public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    TextView txtFullname_emp_navigation;
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_homepage);
+
+        drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView = findViewById(R.id.navigationview_homepage);
+        toolbar = findViewById(R.id.toolbar);
+
+        //findviewbyID ở một layout khác
+        View view = navigationView.getHeaderView(0);
+        txtFullname_emp_navigation = view.findViewById(R.id.txtNameofEmployeeNavigation);
+
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open, R.string.close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        //Thuộc tính đinh màu sắc icon, nếu null là màu mặc định
+        navigationView.setItemIconTintList(null);
+
+        Intent intent = getIntent();
+        String sUserName = intent.getStringExtra("username");
+        Log.d("du lieu ", sUserName);
+        txtFullname_emp_navigation.setText("Hi, " + sUserName);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
+    }
+}

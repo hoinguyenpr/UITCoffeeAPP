@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">coffeapp</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="password">Mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="store_name">K10 Coffee House</string>
+    <string name="create_employee">Tạo mới nhân viên</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="birth">Ngày sinh</string>
+    <string name="startday">Ngày đăng ký</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="enterusername">Bạn quên nhập tên đăng nhập</string>
+    <string name="enterpassword">Bạn quên nhập mật khẩu</string>
+    <string name="enterfullname">Bạn quên nhập tên mình</string>
+    <string name="themthanhcong">Thêm thành công</string>
+    <string name="themthatbai">Thêm thất bại</string>
+    <string name="reg">Đăng ký</string>
+    <string name="homepage">Trang chủ</string>
+    <string name="menu">Thực đơn</string>
+    <string name="profile">Trang cá nhân</string>
+    <string name="statiscal">Thống kê</string>
+    <string name="setting">Cài đặt</string>
+    <string name="open">Mở</string>
+    <string name="close">đóng</string>
+</resources>

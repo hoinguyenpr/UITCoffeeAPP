@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size200dp"
+    android:background="@drawable/coffeeview"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logoNavigation"
+        android:layout_height="80dp"
+        android:layout_width="80dp"
+        android:src="@drawable/chef_96px"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/size20dp"
+        >
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/txtNameofEmployeeNavigation"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_below = "@id/logoNavigation"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:layout_alignLeft="@+id/logoNavigation"
+        android:layout_alignStart="@+id/logoNavigation"
+        />
+</RelativeLayout>
