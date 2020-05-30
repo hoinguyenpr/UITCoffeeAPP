@@ -23,6 +23,12 @@
         <activity android:name=".Activity.HomepageActivity">
         </activity>
 
+        <activity android:name=".Activity.Activity_Add_Table"
+            android:theme="@style/popupActivity"
+            >
+        </activity>
+
+
     </application>
 
 </manifest>

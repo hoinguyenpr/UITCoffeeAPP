@@ -15,8 +15,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowTableFragment;
 import com.hoinguyen.uitcoffeeapp.R;
 
 
@@ -25,6 +28,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     NavigationView navigationView;
     Toolbar toolbar;
     TextView txtFullname_emp_navigation;
+    FragmentManager fragmentManager;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -63,14 +67,36 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         //Thuộc tính đinh màu sắc icon, nếu null là màu mặc định
         navigationView.setItemIconTintList(null);
 
+        //set sự kiện click cho Navigation menu
+        navigationView.setNavigationItemSelectedListener(this);
+
         Intent intent = getIntent();
         String sUserName = intent.getStringExtra("username");
-        Log.d("du lieu ", sUserName);
         txtFullname_emp_navigation.setText("Hi, " + sUserName);
+
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction tranShowTable = fragmentManager.beginTransaction();
+        ShowTableFragment showTableFragment = new ShowTableFragment();
+        tranShowTable.replace(R.id.content, showTableFragment);
+        tranShowTable.commit();
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id){
+            case R.id.itHomepage:
+                FragmentTransaction tranShowTable = fragmentManager.beginTransaction();
+                ShowTableFragment showTableFragment = new ShowTableFragment();
+                tranShowTable.replace(R.id.content, showTableFragment);
+                tranShowTable.commit();
+
+                //đóng menu sau khi click
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+                ;break;
+        }
         return false;
     }
 }

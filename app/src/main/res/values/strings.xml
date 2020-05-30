@@ -23,5 +23,10 @@
     <string name="statiscal">Thống kê</string>
     <string name="setting">Cài đặt</string>
     <string name="open">Mở</string>
-    <string name="close">đóng</string>
+    <string name="close">Đóng</string>
+    <string name="addtable">Thêm bàn ăn</string>
+    <string name="tablename">Tên bàn ăn</string>
+    <string name="yes">Đồng ý</string>
+    <string name="exit">Thoát</string>
+    <string name="failinfo">Nhập sai thông tin</string>
 </resources>

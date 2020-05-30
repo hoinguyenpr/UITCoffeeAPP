@@ -4,6 +4,7 @@
         android:checkableBehavior="single"
         >
     <item
+        android:id="@+id/itHomepage"
         android:title="@string/homepage"
         android:icon="@drawable/home_48px"
         android:checked="true"/>

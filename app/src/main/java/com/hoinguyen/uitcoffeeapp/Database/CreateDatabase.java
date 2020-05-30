@@ -63,12 +63,17 @@ public class CreateDatabase extends SQLiteOpenHelper {
     //Create table Table
     public static String TB_table = "t_table";
     public static String TB_table_tableid = "table_id";
+    public static String TB_table_tablename = "table_name";
     public static String TB_table_status = "status";
     public static String TB_table_storeid = "store_id";
 
     public CreateDatabase(Context context) {
         super(context, "nhom5UIT.db", null, 1);
     }
+
+    /*
+    * Create table Order
+    * */
     String sqlOrder = "CREATE TABLE " + TB_order + " ( " +
             TB_order_orderid + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TB_order_emid + " INTEGER, " +
@@ -117,6 +122,7 @@ public class CreateDatabase extends SQLiteOpenHelper {
 
     String sqlTable = "CREATE TABLE " + TB_table + " ( " +
             TB_table_tableid + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TB_table_tablename + " TEXT, " +
             TB_table_storeid + " INTEGER, " +
             TB_table_status + " INTEGER )";
     @Override
