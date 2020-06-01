@@ -3,6 +3,15 @@ package com.hoinguyen.uitcoffeeapp.DTO;
 public class TableDTO {
     private String table_name;
     private int table_id, store_id, table_status;
+    boolean isChoose;
+
+    public boolean isChoose() {
+        return isChoose;
+    }
+
+    public void setChoose(boolean choose) {
+        isChoose = choose;
+    }
 
     public String getTable_name() {
         return table_name;

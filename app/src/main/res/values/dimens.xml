@@ -6,4 +6,7 @@
     <dimen name="size20dp">20dp</dimen>
     <dimen name="size30sp">30sp</dimen>
     <dimen name="size200dp">200dp</dimen>
+    <dimen name="size6dp">6dp</dimen>
+    <dimen name="size100dp">100dp</dimen>
+    <dimen name="size180dp">180dp</dimen>
 </resources>

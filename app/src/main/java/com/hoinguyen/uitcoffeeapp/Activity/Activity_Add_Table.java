@@ -19,9 +19,7 @@ public class Activity_Add_Table extends AppCompatActivity implements View.OnClic
     EditText edTableName;
     Button btnAcceptAddTable;
 
-
     TableDAO tableDAO;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +38,9 @@ public class Activity_Add_Table extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         TableDTO tableDTO = new TableDTO();
+
         String sNameTable = edTableName.getText().toString();
+        tableDTO.setTable_name(sNameTable);
 
         if(sNameTable != null && !sNameTable.equals("")){
             boolean result = tableDAO.AddTable(tableDTO);
