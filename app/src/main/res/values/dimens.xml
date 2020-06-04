@@ -9,4 +9,7 @@
     <dimen name="size6dp">6dp</dimen>
     <dimen name="size100dp">100dp</dimen>
     <dimen name="size180dp">180dp</dimen>
+    <dimen name="size18sp">18sp</dimen>
+    <dimen name="size250dp">250dp</dimen>
+    <dimen name="size150dp">150dp</dimen>
 </resources>

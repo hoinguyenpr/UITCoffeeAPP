@@ -4,4 +4,9 @@
         android:id="@+id/itAddTable"
         android:title="@string/yes"
         />
+    <item
+        android:id="@+id/itAddMenu"
+        android:title="@string/addmenu"
+        />
+
 </menu>

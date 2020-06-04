@@ -9,14 +9,17 @@
         android:icon="@drawable/home_48px"
         android:checked="true"/>
     <item
+        android:id="@+id/itProfile"
         android:title="@string/profile"
         android:icon="@drawable/waiter_48px"
         />
     <item
+        android:id="@+id/itMenu"
         android:title="@string/menu"
         android:icon="@drawable/food_and_wine_48px"
         />
     <item
+        android:id="@+id/itStatiscal"
         android:title="@string/statiscal"
         android:icon="@drawable/profit_48px"
         />

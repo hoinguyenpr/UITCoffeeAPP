@@ -28,6 +28,9 @@
             >
         </activity>
 
+        <activity android:name=".Activity.Activity_Add_Menu">
+        </activity>
+
 
     </application>
 

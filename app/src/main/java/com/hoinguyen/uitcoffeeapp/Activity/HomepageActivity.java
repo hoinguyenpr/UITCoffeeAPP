@@ -3,8 +3,6 @@ package com.hoinguyen.uitcoffeeapp.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowMenuFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowTableFragment;
 import com.hoinguyen.uitcoffeeapp.R;
 
@@ -91,6 +90,16 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 ShowTableFragment showTableFragment = new ShowTableFragment();
                 tranShowTable.replace(R.id.content, showTableFragment);
                 tranShowTable.commit();
+
+                //đóng menu sau khi click
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+                ;break;
+            case R.id.itMenu:
+                FragmentTransaction tranShowMenu = fragmentManager.beginTransaction();
+                ShowMenuFragment showMenuFragment = new ShowMenuFragment();
+                tranShowMenu.replace(R.id.content, showMenuFragment);
+                tranShowMenu.commit();
 
                 //đóng menu sau khi click
                 menuItem.setChecked(true);

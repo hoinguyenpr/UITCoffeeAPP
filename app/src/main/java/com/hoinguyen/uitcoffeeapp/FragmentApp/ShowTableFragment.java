@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hoinguyen.uitcoffeeapp.Activity.Activity_Add_Table;
+import com.hoinguyen.uitcoffeeapp.Activity.HomepageActivity;
 import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowTableAdapter;
 import com.hoinguyen.uitcoffeeapp.DAO.TableDAO;
 import com.hoinguyen.uitcoffeeapp.DTO.TableDTO;
@@ -39,6 +40,8 @@ public class ShowTableFragment extends Fragment {
 
         gridViewShowTable = view.findViewById(R.id.gvShowTable);
 
+        getActivity().setTitle(R.string.addtable);
+
         tableDAO = new TableDAO(getActivity());
         tableDTOList = tableDAO.ListAllTable();
 
@@ -46,6 +49,7 @@ public class ShowTableFragment extends Fragment {
 
         return view;
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
