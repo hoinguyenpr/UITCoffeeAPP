@@ -2,9 +2,13 @@ package com.hoinguyen.uitcoffeeapp.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,17 +20,20 @@ import com.hoinguyen.uitcoffeeapp.DAO.CategoryDAO;
 import com.hoinguyen.uitcoffeeapp.DTO.CategoryDTO;
 import com.hoinguyen.uitcoffeeapp.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Add_Menu extends AppCompatActivity implements View.OnClickListener {
 
     public static int REQUEST_CODE_ADD_CATEGORY = 113;
+    public static int REQUEST_CODE_OPEN_IMAGE = 123;
     ImageButton imgAddCategory;
     Spinner spinCategory;
     CategoryDAO categoryDAO;
     List<CategoryDTO> categoryDTOList;
     ShowCategoryAdapter showCategoryAdapter;
+    ImageView imImageOfCategory;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,10 +43,12 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
         categoryDAO = new CategoryDAO(this);
         imgAddCategory = findViewById(R.id.imgAddCategory);
         spinCategory = findViewById(R.id.spinCategory);
+        imImageOfCategory = findViewById(R.id.imgImageOfFood);
 
         showSpinnerCategory();
 
         imgAddCategory.setOnClickListener(this);
+        imImageOfCategory.setOnClickListener(this);
     }
 
     private void showSpinnerCategory(){
@@ -58,6 +67,12 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
                 Intent iAddCategory = new Intent(Activity_Add_Menu.this, Activity_Add_Category.class);
                 startActivityForResult(iAddCategory, REQUEST_CODE_ADD_CATEGORY);
                 ;break;
+            case R.id.imgImageOfFood:
+                Intent iOpenImage = new Intent();
+                iOpenImage.setType("image/*");
+                iOpenImage.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(iOpenImage,"Chon hinh"), REQUEST_CODE_OPEN_IMAGE);
+                ;break;
         }
     }
 
@@ -75,6 +90,16 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
                     Toast.makeText(this, getResources().getString(R.string.notify_add_success), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(this, getResources().getString(R.string.notify_add_faild), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else if(requestCode == REQUEST_CODE_OPEN_IMAGE){
+
+            if(resultCode == Activity.RESULT_OK && data != null){
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),data.getData());
+                    imImageOfCategory.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
