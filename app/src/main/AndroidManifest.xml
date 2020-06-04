@@ -31,6 +31,13 @@
         <activity android:name=".Activity.Activity_Add_Menu">
         </activity>
 
+        <activity android:name=".Activity.Activity_Add_Category"
+            android:theme="@style/popupActivity"
+            android:label="@string/category"
+            >
+        </activity>
+
+
 
     </application>
 

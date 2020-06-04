@@ -40,6 +40,7 @@ public class Activity_Add_Table extends AppCompatActivity implements View.OnClic
         TableDTO tableDTO = new TableDTO();
 
         String sNameTable = edTableName.getText().toString();
+
         tableDTO.setTable_name(sNameTable);
 
         if(sNameTable != null && !sNameTable.equals("")){
