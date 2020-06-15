@@ -23,7 +23,6 @@ public class TableDAO {
     public boolean AddTable(TableDTO tableDTO){
         ContentValues contentValues = new ContentValues();
         contentValues.put(CreateDatabase.TB_table_tablename, tableDTO.getTable_name());
-
         long result = sqLiteDatabase.insert(CreateDatabase.TB_table, null, contentValues);
         if(result != 0){
             return true;

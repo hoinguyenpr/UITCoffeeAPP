@@ -50,6 +50,7 @@ public class Activity_Add_Category extends AppCompatActivity implements View.OnC
             Intent iDataOfCategory = new Intent();
             iDataOfCategory.putExtra("checkcategory",check);
             setResult(Activity.RESULT_OK, iDataOfCategory);
+            finish();
 
         }else{
             Toast.makeText(this, getResources().getString(R.string.notifyplsenterdata), Toast.LENGTH_SHORT).show();

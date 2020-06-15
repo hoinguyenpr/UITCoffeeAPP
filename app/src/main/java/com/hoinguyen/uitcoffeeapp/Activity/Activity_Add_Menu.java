@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,7 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowCategoryAdapter;
 import com.hoinguyen.uitcoffeeapp.DAO.CategoryDAO;
+import com.hoinguyen.uitcoffeeapp.DAO.FoodDAO;
 import com.hoinguyen.uitcoffeeapp.DTO.CategoryDTO;
+import com.hoinguyen.uitcoffeeapp.DTO.FoodDTO;
 import com.hoinguyen.uitcoffeeapp.R;
 
 import java.io.IOException;
@@ -30,10 +36,16 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
     public static int REQUEST_CODE_OPEN_IMAGE = 123;
     ImageButton imgAddCategory;
     Spinner spinCategory;
+
+    FoodDAO foodDAO;
     CategoryDAO categoryDAO;
+
     List<CategoryDTO> categoryDTOList;
     ShowCategoryAdapter showCategoryAdapter;
-    ImageView imImageOfCategory;
+    ImageView imImageOfFood;
+    Button btnAcceptAddFood, btnExitAddFood;
+    String linkImage;
+    EditText edAddNameOfFood, edAddPriceOfFood;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +53,30 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.layout_add_menu);
 
         categoryDAO = new CategoryDAO(this);
+        foodDAO = new FoodDAO(this);
+
         imgAddCategory = findViewById(R.id.imgAddCategory);
         spinCategory = findViewById(R.id.spinCategory);
-        imImageOfCategory = findViewById(R.id.imgImageOfFood);
+        imImageOfFood = findViewById(R.id.imgImageOfFood);
+        btnAcceptAddFood = findViewById(R.id.btnAcceptAddFood);
+        btnExitAddFood = findViewById(R.id.btnExitAddFood);
+        edAddNameOfFood = findViewById(R.id.edAddNameOfFood);
+        edAddPriceOfFood = findViewById(R.id.edAddPriceOfFood);
 
         showSpinnerCategory();
 
         imgAddCategory.setOnClickListener(this);
-        imImageOfCategory.setOnClickListener(this);
+        imImageOfFood.setOnClickListener(this);
+        btnAcceptAddFood.setOnClickListener(this);
+        btnExitAddFood.setOnClickListener(this);
+
+        //Xử lý spinner lấy id/ khong dung cach nay
+//        spinCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                TextView textView = view.findViewById(R.id.txtNameOfCategory);
+//            }
+//        });
     }
 
     private void showSpinnerCategory(){
@@ -73,6 +101,37 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
                 iOpenImage.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(iOpenImage,"Chon hinh"), REQUEST_CODE_OPEN_IMAGE);
                 ;break;
+            case R.id.btnAcceptAddFood:
+                int place = spinCategory.getSelectedItemPosition();
+                int category_id = categoryDTOList.get(place).getCategory_id();
+                String name_food = edAddNameOfFood.getText().toString();
+                int price_food = Integer.parseInt(edAddPriceOfFood.getText().toString());
+
+
+                if(name_food != null && price_food > 0 && !name_food.equals("")){
+                    FoodDTO foodDTO = new FoodDTO();
+                    foodDTO.setName_food(name_food);
+                    foodDTO.setFood_price(price_food);
+                    foodDTO.setImage_food(linkImage);
+                    foodDTO.setCategory_id(category_id);
+
+                    boolean check = foodDAO.AddFood(foodDTO);
+                    if(check){
+                        Toast.makeText(this,getResources().getString(R.string.notify_add_success), Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(this,getResources().getString(R.string.notify_add_faild), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(this,getResources().getString(R.string.error_add_food), Toast.LENGTH_SHORT).show();
+            }
+
+
+                Log.d("vitri", place +"");
+                ;break;
+            case R.id.btnExitAddFood:
+                finish();
+                break;
         }
     }
 
@@ -95,12 +154,15 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
         }else if(requestCode == REQUEST_CODE_OPEN_IMAGE){
 
             if(resultCode == Activity.RESULT_OK && data != null){
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),data.getData());
-                    imImageOfCategory.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),data.getData());
+//                    imImageOfCategory.setImageBitmap(bitmap);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                linkImage = data.getData().toString();
+                imImageOfFood.setImageURI(data.getData());
+
             }
         }
     }

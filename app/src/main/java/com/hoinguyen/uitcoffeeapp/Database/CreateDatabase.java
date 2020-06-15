@@ -26,6 +26,7 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public static String TB_food_namefood = "name_food";
     public static String TB_food_status = "status";
     public static String TB_food_price = "price";
+    public static String TB_food_image = "image_food";
     public static String TB_food_categoryid = "category_id";
 
     //Create table Category
@@ -90,7 +91,9 @@ public class CreateDatabase extends SQLiteOpenHelper {
             TB_food_foodid + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TB_food_categoryid + " INTEGER, " +
             TB_food_namefood + " TEXT, " +
-            TB_food_price + " INTEGER," + TB_food_status + " INTEGER) ";
+            TB_food_price + " INTEGER," +
+            TB_food_image + " TEXT," +
+            TB_food_status + " INTEGER) ";
 
     String sqlCategory = "CREATE TABLE " + TB_category + " ( " +
             TB_category_categoryid + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
