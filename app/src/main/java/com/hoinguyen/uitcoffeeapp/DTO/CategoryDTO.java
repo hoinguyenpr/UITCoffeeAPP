@@ -1,8 +1,16 @@
 package com.hoinguyen.uitcoffeeapp.DTO;
 
 public class CategoryDTO {
-    private String category_name;
+    private String category_name, category_image;
     private int category_id;
+
+    public String getCategory_image() {
+        return category_image;
+    }
+
+    public void setCategory_image(String category_image) {
+        this.category_image = category_image;
+    }
 
     public String getCategory_name() {
         return category_name;

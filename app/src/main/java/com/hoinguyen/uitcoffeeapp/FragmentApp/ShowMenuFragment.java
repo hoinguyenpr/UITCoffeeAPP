@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,21 +16,35 @@ import androidx.fragment.app.Fragment;
 
 import com.hoinguyen.uitcoffeeapp.Activity.Activity_Add_Menu;
 import com.hoinguyen.uitcoffeeapp.Activity.HomepageActivity;
+import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowCategoryFoodAdapter;
+import com.hoinguyen.uitcoffeeapp.DAO.CategoryDAO;
+import com.hoinguyen.uitcoffeeapp.DTO.CategoryDTO;
 import com.hoinguyen.uitcoffeeapp.R;
+
+import java.util.List;
 /*
 * Hoi Nguyen 1.6.2020
 * */
 
 public class ShowMenuFragment extends Fragment {
-
+    GridView gridView;
+    List<CategoryDTO> categoryDTOList;
+    CategoryDAO categoryDAO;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_show_menu, container, false);
-
         setHasOptionsMenu(true);
-
         getActivity().setTitle(R.string.addmenu);
+
+        gridView = view.findViewById(R.id.gvShowMenu);
+
+        categoryDAO = new CategoryDAO(getActivity());
+        categoryDTOList = categoryDAO.ListAllCategory();
+
+        ShowCategoryFoodAdapter adapter = new ShowCategoryFoodAdapter(getActivity(), R.layout.custom_layout_show_category, categoryDTOList);
+        gridView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         return view;
     }
 

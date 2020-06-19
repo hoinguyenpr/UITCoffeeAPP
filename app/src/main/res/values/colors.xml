@@ -7,4 +7,5 @@
     <color name="colorGray">#808080</color>
     <color name="colorGreenPrimary">#75a478</color>
     <color name="colorGreenDark">#519657</color>
+    <color name="backgroundtransparentGreen">#6600574B</color>
 </resources>

@@ -152,7 +152,6 @@ public class Activity_Add_Menu extends AppCompatActivity implements View.OnClick
                 }
             }
         }else if(requestCode == REQUEST_CODE_OPEN_IMAGE){
-
             if(resultCode == Activity.RESULT_OK && data != null){
 //                try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),data.getData());

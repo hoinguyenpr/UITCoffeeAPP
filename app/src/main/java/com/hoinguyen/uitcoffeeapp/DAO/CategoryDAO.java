@@ -50,4 +50,21 @@ public class CategoryDAO {
         return tableDTOS;
     }
 
+    //18-6
+    public String getImageCategory(int categoryID){
+        String imgCategory = "";
+        String sqlquery = "select * from food WHERE food.category_id = " + categoryID + " and food.image_food != '' order by food_id DESC limit 1";
+
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlquery,null);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            imgCategory = cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_food_image));
+            cursor.moveToNext();
+        }
+        if(imgCategory != null){
+            return imgCategory;
+        }
+        else return null;
+    }
 }
