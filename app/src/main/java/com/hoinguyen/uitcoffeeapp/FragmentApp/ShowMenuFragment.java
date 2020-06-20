@@ -8,11 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.hoinguyen.uitcoffeeapp.Activity.Activity_Add_Menu;
 import com.hoinguyen.uitcoffeeapp.Activity.HomepageActivity;
@@ -30,6 +33,9 @@ public class ShowMenuFragment extends Fragment {
     GridView gridView;
     List<CategoryDTO> categoryDTOList;
     CategoryDAO categoryDAO;
+    FragmentManager fragmentManager;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,12 +45,33 @@ public class ShowMenuFragment extends Fragment {
 
         gridView = view.findViewById(R.id.gvShowMenu);
 
+        fragmentManager = getFragmentManager();
+
         categoryDAO = new CategoryDAO(getActivity());
         categoryDTOList = categoryDAO.ListAllCategory();
 
         ShowCategoryFoodAdapter adapter = new ShowCategoryFoodAdapter(getActivity(), R.layout.custom_layout_show_category, categoryDTOList);
         gridView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        //20-6 view product when click on grid view ( category)
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int categoryID = categoryDTOList.get(position).getCategory_id();
+
+                ShowFoodListFragment showFoodListFragment = new ShowFoodListFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("categoryid", categoryID);
+                showFoodListFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.content, showFoodListFragment);
+
+                transaction.commit();
+            }
+        });
         return view;
     }
 

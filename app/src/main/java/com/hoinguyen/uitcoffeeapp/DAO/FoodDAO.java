@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.hoinguyen.uitcoffeeapp.DTO.FoodDTO;
 import com.hoinguyen.uitcoffeeapp.Database.CreateDatabase;
@@ -51,5 +52,26 @@ public class FoodDAO {
             cursor.moveToNext();
         }
         return foodDTOList;
+    }
+
+    public List<FoodDTO> getListFoodbyCategoryID(int categoryID){
+        List<FoodDTO> foodDTOList = new ArrayList<FoodDTO>();
+
+        String sqlquery = "select * from food WHERE food.category_id = " + categoryID;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlquery,null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            FoodDTO foodDTO = new FoodDTO();
+            foodDTO.setImage_food(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_food_image)) + "");
+            foodDTO.setName_food(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_food_namefood)));
+            foodDTO.setFood_price(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_price)));
+            foodDTO.setFood_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_foodid)));
+            foodDTO.setCategory_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_categoryid)));
+            //Log.d("Ten mon an: ", foodDTO.getName_food() +"");
+            foodDTOList.add(foodDTO);
+            cursor.moveToNext();
+        }
+        return  foodDTOList;
     }
 }

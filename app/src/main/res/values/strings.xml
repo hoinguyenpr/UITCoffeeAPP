@@ -39,4 +39,5 @@
     <string name="notify_add_success">Thêm thành công</string>
     <string name="notify_add_faild">Thêm thất bại</string>
     <string name="error_add_food">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="price">Giá</string>
 </resources>
