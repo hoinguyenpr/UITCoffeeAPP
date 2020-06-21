@@ -8,4 +8,7 @@
     <color name="colorGreenPrimary">#75a478</color>
     <color name="colorGreenDark">#519657</color>
     <color name="backgroundtransparentGreen">#6600574B</color>
+    <color name="backgroundLogin">#68992e</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorOrganButton">#EF6C00</color>
 </resources>

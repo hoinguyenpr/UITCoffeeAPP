@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size10dp"
+        android:background="@color/backgroundLogin"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nameoffood"
+            android:layout_weight="1"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity"
+            android:layout_weight="1"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/food_price"
+            android:layout_weight="1"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gvPayment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:numColumns="1"
+        >
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/txtSumPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sum_price"
+        android:layout_marginLeft="@dimen/size10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/size18sp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/payment"
+            android:layout_margin="@dimen/size10dp"
+            />
+
+        <Button
+            android:id="@+id/btnExitPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/exit"
+            android:background="@color/colorOrganButton"
+            android:layout_margin="@dimen/size10dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

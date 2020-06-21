@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.hoinguyen.uitcoffeeapp.Activity.Activity_Payment;
 import com.hoinguyen.uitcoffeeapp.Activity.HomepageActivity;
 import com.hoinguyen.uitcoffeeapp.DAO.OrderDAO;
 import com.hoinguyen.uitcoffeeapp.DAO.TableDAO;
@@ -115,6 +116,12 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
         //Set su kien click cho ImageButton order
         viewHolderTable.imgOrder.setOnClickListener(this);
 
+        //21-6
+        //set su kien click cho ImageButton payment
+        viewHolderTable.imgPayment.setOnClickListener(this);
+
+        //set su kien click cho ImageButton hint
+        viewHolderTable.imgHint.setOnClickListener(this);
 
         return view;
     }
@@ -133,6 +140,8 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
     public void onClick(View view) {
         int id = view.getId();
         viewHolderTable = (ViewHolderTable) ((View)view.getParent()).getTag();
+        int place1 = (int) viewHolderTable.imgTable.getTag();
+        int tableID = tableDTOS.get(place1).getTable_id();
         switch (id){
             case R.id.imgTable:
                 int place = (int) view.getTag();
@@ -143,8 +152,7 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
             //20-6
             //Set su kien click cho ImageButton order
             case R.id.imgOrder:
-                int place1 = (int) viewHolderTable.imgTable.getTag();
-                int tableID = tableDTOS.get(place1).getTable_id();
+
                 Intent getIHomePage = ((HomepageActivity)context).getIntent();
                 int emid = getIHomePage.getIntExtra("emid", 0);
                 int status = tableDAO.getTableStatusByID(tableID);
@@ -178,6 +186,12 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
                 showMenuFragment.setArguments(bDataMenu);
                 tranMenutransaction.replace(R.id.content, showMenuFragment).addToBackStack("showtable");
                 tranMenutransaction.commit();
+                ;break;
+
+            case R.id.imgPayment:
+                Intent iPayment = new Intent(context, Activity_Payment.class);
+                iPayment.putExtra("tableid", tableID);
+                context.startActivity(iPayment);
                 ;break;
         }
     }

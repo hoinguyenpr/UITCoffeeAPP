@@ -41,4 +41,6 @@
     <string name="error_add_food">Vui lòng nhập đầy đủ thông tin</string>
     <string name="price">Giá</string>
     <string name="quantity">Số lượng</string>
+    <string name="payment">Thanh toán</string>
+    <string name="sum_price">Tổng tiền</string>
 </resources>
