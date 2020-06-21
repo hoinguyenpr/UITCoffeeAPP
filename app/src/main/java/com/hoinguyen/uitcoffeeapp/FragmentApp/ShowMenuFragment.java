@@ -35,6 +35,7 @@ public class ShowMenuFragment extends Fragment {
     List<CategoryDTO> categoryDTOList;
     CategoryDAO categoryDAO;
     FragmentManager fragmentManager;
+    int tableid;
 
 
     @Nullable
@@ -55,6 +56,12 @@ public class ShowMenuFragment extends Fragment {
         gridView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+        Bundle bDataMenu = getArguments();
+        if(bDataMenu != null){
+            tableid = bDataMenu.getInt("tableid");
+
+        }
+
         //20-6 view product when click on grid view ( category)
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,6 +72,8 @@ public class ShowMenuFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("categoryid", categoryID);
+                bundle.putInt("tableid", tableid);
+
                 showFoodListFragment.setArguments(bundle);
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -73,11 +82,6 @@ public class ShowMenuFragment extends Fragment {
                 transaction.commit();
             }
         });
-
-        Bundle bDataMenu = getArguments();
-        if(bDataMenu != null){
-            int tableid = bDataMenu.getInt("tableid");
-        }
         return view;
     }
 
