@@ -2,6 +2,7 @@ package com.hoinguyen.uitcoffeeapp.FragmentApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -72,6 +73,11 @@ public class ShowMenuFragment extends Fragment {
                 transaction.commit();
             }
         });
+
+        Bundle bDataMenu = getArguments();
+        if(bDataMenu != null){
+            int tableid = bDataMenu.getInt("tableid");
+        }
         return view;
     }
 

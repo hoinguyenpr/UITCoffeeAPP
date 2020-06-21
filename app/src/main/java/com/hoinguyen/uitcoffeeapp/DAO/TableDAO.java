@@ -46,4 +46,27 @@ public class TableDAO {
         }
         return tableDTOS;
     }
+    public int getTableStatusByID(int tableID){
+        int status = 0;
+        String sqlQuery = "select * from t_table where table_id  = " + tableID;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            status = cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_table_status ));
+            cursor.moveToNext();
+        }
+        return status;
+    }
+
+    public boolean updateTableStatusByID(int tableID, int status){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_table_status, status);
+
+        long check = sqLiteDatabase.update(CreateDatabase.TB_table, contentValues, CreateDatabase.TB_table_tableid + " = '" + tableID + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

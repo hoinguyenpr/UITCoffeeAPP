@@ -52,12 +52,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void clickBtnLogin(){
         String sUsername =  edUsername.getText().toString();
         String sPassword = edPassword.getText().toString();
-       boolean result =  employeeDAO.EmployeeLogin(sUsername, sPassword);
-       if(result){
+       int result =  employeeDAO.EmployeeLogin(sUsername, sPassword);
+       if(result != 0){
            //Chuyển đến actvitiy Homepage sau khi login success
            Intent iHomePage = new Intent(LoginActivity.this, HomepageActivity.class);
            //put giá trị
            iHomePage.putExtra("username", edUsername.getText().toString());
+           iHomePage.putExtra("emid", result);
            startActivity(iHomePage);
        }else{
            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại  ", Toast.LENGTH_LONG).show();

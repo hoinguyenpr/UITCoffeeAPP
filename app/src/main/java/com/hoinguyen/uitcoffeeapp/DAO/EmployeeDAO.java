@@ -45,14 +45,16 @@ public class EmployeeDAO {
         }
     }
     //hàm kiểm tra đăng nhập
-    public boolean EmployeeLogin(String username, String password) {
+    public int EmployeeLogin(String username, String password) {
         String query = "SELECT * FROM " + CreateDatabase.TB_employee + " WHERE " + CreateDatabase.TB_employee_username + " = '" + username +
                 "' AND " + CreateDatabase.TB_employee_password + " = '" + password +"'";
+        int employeeID = 0;
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor.getCount() != 0) {
-            return true;
-        } else {
-            return false;
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            employeeID = cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_emid));
+            cursor.moveToNext();
         }
+        return employeeID;
     }
 }
