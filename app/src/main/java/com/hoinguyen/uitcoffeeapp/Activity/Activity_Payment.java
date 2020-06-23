@@ -93,13 +93,13 @@ public class Activity_Payment extends AppCompatActivity implements View.OnClickL
                 ;break;
             case R.id.btnExitPayment:
                 //Nếu dùng finish thì bàn sẽ không chuyển về trạng thái đúng
-//                finish(); n
+                finish();
                 //Sau khi nhấn nút thoát, bàn load lại bằng các gọi fragment
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                ShowTableFragment showTableFragment = new ShowTableFragment();
-                transaction.replace(R.id.content, showTableFragment);
-                transaction.commit();
-
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                ShowTableFragment showTableFragment = new ShowTableFragment();
+//                transaction.replace(R.id.content, showTableFragment);
+//                transaction.commit();
+                //code tren bi loi, chua fix duoc 22-6
                 ;break;
         }
     }

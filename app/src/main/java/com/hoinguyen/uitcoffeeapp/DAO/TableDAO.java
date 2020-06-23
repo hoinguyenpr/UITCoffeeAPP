@@ -69,4 +69,25 @@ public class TableDAO {
             return false;
         }
     }
+
+    public boolean deleteTableByID(int tableID){
+        long check = sqLiteDatabase.delete(CreateDatabase.TB_table, CreateDatabase.TB_table_tableid + " = " + tableID, null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean updateTableNameByID(int tableID, String name){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_table_tablename, name);
+
+        long check = sqLiteDatabase.update(CreateDatabase.TB_table, contentValues, CreateDatabase.TB_table_tableid + " = '" + tableID + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

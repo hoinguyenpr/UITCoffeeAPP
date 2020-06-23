@@ -120,7 +120,7 @@ public class OrderDAO {
 
     public boolean updateStatusOrderByTableID(int tableid, int status){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CreateDatabase.TB_order_status, tableid);
+        contentValues.put(CreateDatabase.TB_order_status, status);
 
         long check = sqLiteDatabase.update(CreateDatabase.TB_order, contentValues, CreateDatabase.TB_order_tableid + " = " + tableid, null);
         if(check !=0 ){

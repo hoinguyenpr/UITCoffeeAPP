@@ -29,7 +29,7 @@
     <string name="yes">Đồng ý</string>
     <string name="exit">Thoát</string>
     <string name="failinfo">Nhập sai thông tin</string>
-    <string name="addmenu">Thêm thực đơn</string>
+    <string name="addmen">Thêm thực đơn</string>
     <string name="nameoffood">Tên món ăn</string>
     <string name="food_price">Giá tiền</string>
     <string name="table">Bàn</string>
@@ -45,4 +45,9 @@
     <string name="sum_price">Tổng cộng: </string>
     <string name="payment_success">Thanh toán thành công</string>
     <string name="payment_faild">Thanh toán thất bại</string>
+    <string name="delete">Xóa</string>
+    <string name="edit">Sửa</string>
+    <string name="delete_successful">Xóa thành công</string>
+    <string name="delete_failed">Xóa thất bại</string>
+    <string name="addmenu">Thêm thực đơn</string>
 </resources>
