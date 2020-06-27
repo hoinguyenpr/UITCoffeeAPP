@@ -13,10 +13,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowEmployeeAdapter;
+import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowEmployeeFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowMenuFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowTableFragment;
 import com.hoinguyen.uitcoffeeapp.R;
@@ -102,6 +105,15 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 tranShowMenu.commit();
 
                 //đóng menu sau khi click
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+                ;break;
+            case R.id.itProfile:
+                FragmentTransaction tranShowEmployee = fragmentManager.beginTransaction();
+                ShowEmployeeFragment showEmployeeFragment = new ShowEmployeeFragment();
+                tranShowEmployee.replace(R.id.content, showEmployeeFragment);
+                tranShowEmployee.commit();
+
                 menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 ;break;

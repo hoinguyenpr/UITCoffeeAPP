@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.hoinguyen.uitcoffeeapp.DTO.EmployeeDTO;
 import com.hoinguyen.uitcoffeeapp.Database.CreateDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmployeeDAO {
     SQLiteDatabase sqLiteDatabase;
 
@@ -56,5 +59,29 @@ public class EmployeeDAO {
             cursor.moveToNext();
         }
         return employeeID;
+    }
+
+    public List<EmployeeDTO> getListOfEmployee(){
+        List<EmployeeDTO> employeeDTOList = new ArrayList<EmployeeDTO>();
+        String sqlQuery = "select * from " + CreateDatabase.TB_employee;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setEm_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_emid)));
+            employeeDTO.setFullname(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_fullname)));
+            employeeDTO.setBirthday(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_birthday)));
+            employeeDTO.setPassword(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_password)));
+            employeeDTO.setUsername(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_username)));
+            employeeDTO.setPhone(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_phone)));
+            employeeDTO.setSex(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_sex)));
+            employeeDTO.setStart_date(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_startdate)));
+            employeeDTO.setStatus(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_status)));
+            employeeDTO.setType(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_type)));
+
+            employeeDTOList.add(employeeDTO);
+            cursor.moveToNext();
+        }
+        return employeeDTOList;
     }
 }
