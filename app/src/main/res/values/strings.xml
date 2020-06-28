@@ -51,4 +51,8 @@
     <string name="delete_failed">Xóa thất bại</string>
     <string name="addmenu">Thêm thực đơn</string>
     <string name="addemployee">Thêm nhân viên</string>
+    <string name="updateemployee">Cập nhật nhân viên</string>
+    <string name="unabletoupdate">Không được sửa</string>
+    <string name="editsucess">Sửa thành công</string>
+    <string name="editfaild">Sửa thất bại</string>
 </resources>

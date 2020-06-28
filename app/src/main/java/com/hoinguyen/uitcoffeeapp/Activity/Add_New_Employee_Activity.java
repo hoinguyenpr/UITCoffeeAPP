@@ -22,9 +22,11 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
     EditText edFullName, edUsername, edPassWord, edBirth, edPhone, edStartDay;
     Button btnAccept, btnCancel;
     RadioGroup rgGender;
-    RadioButton rdMale;
-    TextView rdFemale;
+    RadioButton rdMale, rdFemale;
+    TextView txtCreateEmployeeTitle;
+
     int sGender;
+    int employeeid = 0;
 
     EmployeeDAO employeeDAO;
 
@@ -45,6 +47,8 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         rgGender = findViewById(R.id.rgGender);
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
+        txtCreateEmployeeTitle = findViewById(R.id.txtCreateEmployeeTitle);
+
 
         //
         edBirth.setOnFocusChangeListener(this);
@@ -56,53 +60,129 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
 
         employeeDAO = new EmployeeDAO(this);
 
+        employeeid = getIntent().getIntExtra("employeeid", 0);
+        if(employeeid != 0){
+            txtCreateEmployeeTitle.setText(getResources().getString(R.string.updateemployee));
+            edUsername.setText(getResources().getString(R.string.unabletoupdate));
+            edUsername.setFocusable(false);
+            EmployeeDTO employeeDTO = employeeDAO.getEmployeeByID(employeeid);
+
+            if(employeeDTO.getFullname() != null && employeeDTO.getFullname().equals("")){
+                edFullName.setText(employeeDTO.getFullname());
+            }
+            if(employeeDTO.getPassword() != null && employeeDTO.getPassword().equals("")){
+                edPassWord.setText(employeeDTO.getPassword());
+            }
+            if(employeeDTO.getBirthday() != null && employeeDTO.getBirthday().equals("")){
+                edBirth.setText(employeeDTO.getBirthday());
+            }
+            if(employeeDTO.getStart_date() != null && employeeDTO.getStart_date().equals("")){
+                edStartDay.setText(employeeDTO.getStart_date());
+            }
+            if(employeeDTO.getPhone() != null && employeeDTO.getPhone().equals("")){
+                edPhone.setText(employeeDTO.getPhone());
+            }
+            int Gender = employeeDTO.getSex();
+            if(Gender == 0){
+                rdMale.setChecked(true);
+            }else if (Gender == 1){
+                rdFemale.setChecked(true);
+            }
+        }
+    }
+    private void AcceptAddEmployee(){
+        String sFullname = edFullName.getText().toString();
+        String sUsername = edUsername.getText().toString();
+        String sPassword = edPassWord.getText().toString();
+        switch (rgGender.getCheckedRadioButtonId()){
+            case R.id.rdMale:
+                sGender = 0;
+                break;
+            case R.id.rdFemale:
+                sGender = 1;
+                break;
+        }
+        String sBirth = edBirth.getText().toString();
+        String sPhone = edPhone.getText().toString();
+        String sStartDay = edStartDay.getText().toString();
+        int type = 1;
+        int status = 1;
+        if(sUsername == null || sUsername.equals("")){
+            Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterusername), Toast.LENGTH_SHORT).show();
+        }else if(sPassword == null || sPassword.equals("")){
+            Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterpassword), Toast.LENGTH_SHORT).show();
+        }else if(sFullname == null || sPassword.equals("")){
+            Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterfullname), Toast.LENGTH_SHORT).show();
+        }else{
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setFullname(sFullname);
+            employeeDTO.setUsername(sUsername);
+            employeeDTO.setPassword(sPassword);
+            employeeDTO.setBirthday(sBirth);
+            employeeDTO.setSex(sGender);
+            employeeDTO.setPhone(sPhone);
+            employeeDTO.setStart_date(sStartDay);
+            employeeDTO.setStatus(status);
+            employeeDTO.setType(type);
+
+            long result = employeeDAO.AddEmployee(employeeDTO);
+            if(result > 0){
+                Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void EditEmployee(){
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        String sFullname = edFullName.getText().toString();
+        String sUsername = edUsername.getText().toString();
+        String sPassword = edPassWord.getText().toString();
+        String sBirth = edBirth.getText().toString();
+        String sPhone = edPhone.getText().toString();
+        String sStartDay = edStartDay.getText().toString();
+        int type = 1;
+        int status = 1;
+        switch (rgGender.getCheckedRadioButtonId()){
+            case R.id.rdMale:
+                sGender = 0;
+                break;
+            case R.id.rdFemale:
+                sGender = 1;
+                break;
+        }
+        employeeDTO.setEm_id(employeeid);
+        employeeDTO.setFullname(sFullname);
+        employeeDTO.setUsername(sUsername);
+        employeeDTO.setPassword(sPassword);
+        employeeDTO.setBirthday(sBirth);
+        employeeDTO.setSex(sGender);
+        employeeDTO.setPhone(sPhone);
+        employeeDTO.setStart_date(sStartDay);
+        employeeDTO.setStatus(status);
+        employeeDTO.setType(type);
+
+        boolean result = employeeDAO.EditEmployee(employeeDTO);
+        if(result){
+            Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editsucess), Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editfaild), Toast.LENGTH_SHORT).show();
+        }
+
     }
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id){
             case R.id.btnAccept:
-                String sFullname = edFullName.getText().toString();
-                String sUsername = edUsername.getText().toString();
-                String sPassword = edPassWord.getText().toString();
-                switch (rgGender.getCheckedRadioButtonId()){
-                    case R.id.rdMale:
-                        sGender = 0;
-                        break;
-                    case R.id.rdFemale:
-                        sGender = 1;
-                        break;
-                }
-                String sBirth = edBirth.getText().toString();
-                String sPhone = edPhone.getText().toString();
-                String sStartDay = edStartDay.getText().toString();
-                int type = 1;
-                int status = 1;
-                if(sUsername == null || sUsername.equals("")){
-                    Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterusername), Toast.LENGTH_SHORT).show();
-                }else if(sPassword == null || sPassword.equals("")){
-                    Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterpassword), Toast.LENGTH_SHORT).show();
-                }else if(sFullname == null || sPassword.equals("")){
-                    Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterfullname), Toast.LENGTH_SHORT).show();
+                if(employeeid != 0){
+                    //sua nhan vien
+                    EditEmployee();
                 }else{
-                    EmployeeDTO employeeDTO = new EmployeeDTO();
-                    employeeDTO.setFullname(sFullname);
-                    employeeDTO.setUsername(sUsername);
-                    employeeDTO.setPassword(sPassword);
-                    employeeDTO.setBirthday(sBirth);
-                    employeeDTO.setSex(sGender);
-                    employeeDTO.setPhone(sPhone);
-                    employeeDTO.setStart_date(sStartDay);
-                    employeeDTO.setStatus(status);
-                    employeeDTO.setType(type);
-
-                    long result = employeeDAO.AddEmployee(employeeDTO);
-                    if(result > 0){
-                        Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
-                    }
-                };
+                    //them moi nhan vien
+                    AcceptAddEmployee();
+                }
+                ;
                 break;
             case R.id.btnCancel:
                 finish();

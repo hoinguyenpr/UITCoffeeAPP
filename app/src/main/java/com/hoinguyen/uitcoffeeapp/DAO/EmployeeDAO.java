@@ -84,4 +84,56 @@ public class EmployeeDAO {
         }
         return employeeDTOList;
     }
+    public boolean DeleteEmployeeByEmID(int employeeid){
+        long check = sqLiteDatabase.delete(CreateDatabase.TB_employee, CreateDatabase.TB_employee_emid + " = "+employeeid, null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public EmployeeDTO getEmployeeByID(int employeeid){
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        String sqlQuery = "select * from " + CreateDatabase.TB_employee + " where " + CreateDatabase.TB_employee_emid + " = " + employeeid;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+
+            employeeDTO.setEm_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_emid)));
+            employeeDTO.setFullname(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_fullname)));
+            employeeDTO.setBirthday(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_birthday)));
+            employeeDTO.setPassword(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_password)));
+            employeeDTO.setUsername(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_username)));
+            employeeDTO.setPhone(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_phone)));
+            employeeDTO.setSex(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_sex)));
+            employeeDTO.setStart_date(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_startdate)));
+            employeeDTO.setStatus(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_status)));
+            employeeDTO.setType(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_type)));
+
+            cursor.moveToNext();
+        }
+        return employeeDTO;
+    }
+
+    public boolean EditEmployee(EmployeeDTO employeeDTO){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_employee_fullname, employeeDTO.getFullname());
+        contentValues.put(CreateDatabase.TB_employee_username, employeeDTO.getUsername());
+        contentValues.put(CreateDatabase.TB_employee_password, employeeDTO.getPassword());
+        contentValues.put(CreateDatabase.TB_employee_sex, employeeDTO.getSex());
+        contentValues.put(CreateDatabase.TB_employee_phone, employeeDTO.getPhone());
+        contentValues.put(CreateDatabase.TB_employee_birthday, employeeDTO.getBirthday());
+        contentValues.put(CreateDatabase.TB_employee_startdate, employeeDTO.getStart_date());
+        contentValues.put(CreateDatabase.TB_employee_type, employeeDTO.getType());
+        contentValues.put(CreateDatabase.TB_employee_status, employeeDTO.getStatus());
+
+        long check = sqLiteDatabase.update(CreateDatabase.TB_employee, contentValues, CreateDatabase.TB_employee_emid + " = " + employeeDTO.getEm_id(), null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

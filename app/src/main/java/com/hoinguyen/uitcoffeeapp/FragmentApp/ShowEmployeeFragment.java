@@ -2,13 +2,16 @@ package com.hoinguyen.uitcoffeeapp.FragmentApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,14 +40,57 @@ public class ShowEmployeeFragment extends Fragment {
         listEmployee = view.findViewById(R.id.listViewEmployee);
 
         employeeDAO = new EmployeeDAO(getActivity());
-        employeeDTOList = employeeDAO.getListOfEmployee();
 
+
+//        ShowEmployeeAdapter showEmployeeAdapter = new ShowEmployeeAdapter(getActivity(), R.layout.custom_layout_showemployee, employeeDTOList);
+//        listEmployee.setAdapter(showEmployeeAdapter);
+//        showEmployeeAdapter.notifyDataSetChanged();
+        ShowEmployeeList();
+
+        //Đăng kí context menu
+        registerForContextMenu(listEmployee);
+
+        return view;
+    }
+
+    private void ShowEmployeeList(){
+        employeeDTOList = employeeDAO.getListOfEmployee();
         ShowEmployeeAdapter showEmployeeAdapter = new ShowEmployeeAdapter(getActivity(), R.layout.custom_layout_showemployee, employeeDTOList);
         listEmployee.setAdapter(showEmployeeAdapter);
         showEmployeeAdapter.notifyDataSetChanged();
+    }
 
-        return view;
+    //Khởi tạo context menu
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
 
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.edit_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int place = menuInfo.position;
+        int employeeid = employeeDTOList.get(place).getEm_id();
+        switch (id){
+            case R.id.itEdit:
+                Intent iRegister = new Intent(getActivity(), Add_New_Employee_Activity.class);
+                iRegister.putExtra("employeeid", employeeid);
+                startActivity(iRegister);
+                ;break;
+            case R.id.itDelete:
+                boolean check = employeeDAO.DeleteEmployeeByEmID(employeeid);
+                if(check){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.delete_successful),Toast.LENGTH_SHORT).show();
+                    ShowEmployeeList();
+                }else{
+                    Toast.makeText(getActivity(), getResources().getString(R.string.delete_failed),Toast.LENGTH_SHORT).show();
+                }
+                ;break;
+        }
+        return true;
     }
 
     @Override
