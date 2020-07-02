@@ -19,7 +19,7 @@
     <string name="reg">Đăng ký</string>
     <string name="homepage">Trang chủ</string>
     <string name="menu">Thực đơn</string>
-    <string name="profile">Trang cá nhân</string>
+    <string name="employeemanagement">Quản lý nhân viên</string>
     <string name="statiscal">Thống kê</string>
     <string name="setting">Cài đặt</string>
     <string name="open">Mở</string>
@@ -55,4 +55,7 @@
     <string name="unabletoupdate">Không được sửa</string>
     <string name="editsucess">Sửa thành công</string>
     <string name="editfaild">Sửa thất bại</string>
+    <string name="becomeManager">Nâng cấp quản lý</string>
+    <string name="younotadmin">Bạn không phải là quản lý</string>
+
 </resources>

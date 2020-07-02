@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.hoinguyen.uitcoffeeapp.DTO.EmployeeDTO;
 import com.hoinguyen.uitcoffeeapp.Database.CreateDatabase;
@@ -46,6 +47,7 @@ public class EmployeeDAO {
         }else{
             return false;
         }
+
     }
     //hàm kiểm tra đăng nhập
     public int EmployeeLogin(String username, String password) {
@@ -115,19 +117,36 @@ public class EmployeeDAO {
         }
         return employeeDTO;
     }
+    public boolean updateTableNameByID(int tableID, String name){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_table_tablename, name);
+
+        long check = sqLiteDatabase.update(CreateDatabase.TB_table, contentValues, CreateDatabase.TB_table_tableid + " = '" + tableID + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public boolean EditEmployee(EmployeeDTO employeeDTO){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CreateDatabase.TB_employee_fullname, employeeDTO.getFullname());
-        contentValues.put(CreateDatabase.TB_employee_username, employeeDTO.getUsername());
-        contentValues.put(CreateDatabase.TB_employee_password, employeeDTO.getPassword());
+        if(employeeDTO.getFullname() != null && !employeeDTO.getFullname().equals("")){
+            contentValues.put(CreateDatabase.TB_employee_fullname, employeeDTO.getFullname());
+        }
+        if(employeeDTO.getPassword() != null && !employeeDTO.getPassword().equals("")){
+            contentValues.put(CreateDatabase.TB_employee_password, employeeDTO.getPassword());
+        }
+        if(employeeDTO.getPhone() != null && !employeeDTO.getPhone().equals("")){
+            contentValues.put(CreateDatabase.TB_employee_phone, employeeDTO.getPhone());
+        }
+        if(employeeDTO.getStart_date() != null && !employeeDTO.getStart_date().equals("")){
+            contentValues.put(CreateDatabase.TB_employee_startdate, employeeDTO.getStart_date());
+        }
+        if(employeeDTO.getBirthday() != null && !employeeDTO.getBirthday().equals("")){
+            contentValues.put(CreateDatabase.TB_employee_birthday, employeeDTO.getBirthday());
+        }
         contentValues.put(CreateDatabase.TB_employee_sex, employeeDTO.getSex());
-        contentValues.put(CreateDatabase.TB_employee_phone, employeeDTO.getPhone());
-        contentValues.put(CreateDatabase.TB_employee_birthday, employeeDTO.getBirthday());
-        contentValues.put(CreateDatabase.TB_employee_startdate, employeeDTO.getStart_date());
-        contentValues.put(CreateDatabase.TB_employee_type, employeeDTO.getType());
-        contentValues.put(CreateDatabase.TB_employee_status, employeeDTO.getStatus());
-
         long check = sqLiteDatabase.update(CreateDatabase.TB_employee, contentValues, CreateDatabase.TB_employee_emid + " = " + employeeDTO.getEm_id(), null);
         if(check != 0){
             return true;
@@ -135,5 +154,20 @@ public class EmployeeDAO {
             return false;
         }
     }
+
+    public int getTypeByID(int id){
+        int type = 1;
+        String query = "select type from employee where em_id = " + id;
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            type = cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_type ));
+            cursor.moveToNext();
+        }
+        return type;
+    }
+
+
+
 
 }

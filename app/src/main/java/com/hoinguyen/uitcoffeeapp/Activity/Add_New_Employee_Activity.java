@@ -1,6 +1,7 @@
 package com.hoinguyen.uitcoffeeapp.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ import com.hoinguyen.uitcoffeeapp.R;
 public class Add_New_Employee_Activity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener  {
 
     EditText edFullName, edUsername, edPassWord, edBirth, edPhone, edStartDay;
-    Button btnAccept, btnCancel;
+    Button btnAccept, btnCancel, btnUpgradeManager;
     RadioGroup rgGender;
     RadioButton rdMale, rdFemale;
     TextView txtCreateEmployeeTitle;
@@ -47,6 +48,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         rgGender = findViewById(R.id.rgGender);
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
+        btnUpgradeManager = findViewById(R.id.btnUpgradeManager);
         txtCreateEmployeeTitle = findViewById(R.id.txtCreateEmployeeTitle);
 
 
@@ -57,11 +59,16 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         // vi 2 dong nay ma mat 1 tuan fix, discu
         btnAccept.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        btnUpgradeManager.setOnClickListener(this);
+
+        //disable upgradeManagerbuttoon
+        btnUpgradeManager.setVisibility(View.INVISIBLE);
 
         employeeDAO = new EmployeeDAO(this);
 
         employeeid = getIntent().getIntExtra("employeeid", 0);
         if(employeeid != 0){
+            btnUpgradeManager.setVisibility(View.VISIBLE);
             txtCreateEmployeeTitle.setText(getResources().getString(R.string.updateemployee));
             edUsername.setText(getResources().getString(R.string.unabletoupdate));
             edUsername.setFocusable(false);
@@ -105,7 +112,14 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         String sBirth = edBirth.getText().toString();
         String sPhone = edPhone.getText().toString();
         String sStartDay = edStartDay.getText().toString();
+        boolean checkCount = employeeDAO.checkEmployee();
         int type = 1;
+        if(checkCount == true){
+            type = 1;
+        }else{
+            type = 0;
+        }
+
         int status = 1;
         if(sUsername == null || sUsername.equals("")){
             Toast.makeText(Add_New_Employee_Activity.this, getResources().getString(R.string.enterusername), Toast.LENGTH_SHORT).show();
@@ -134,15 +148,13 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         }
     }
     private void EditEmployee(){
-        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+
         String sFullname = edFullName.getText().toString();
-        String sUsername = edUsername.getText().toString();
         String sPassword = edPassWord.getText().toString();
         String sBirth = edBirth.getText().toString();
         String sPhone = edPhone.getText().toString();
         String sStartDay = edStartDay.getText().toString();
-        int type = 1;
-        int status = 1;
         switch (rgGender.getCheckedRadioButtonId()){
             case R.id.rdMale:
                 sGender = 0;
@@ -151,16 +163,30 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
                 sGender = 1;
                 break;
         }
+        EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setEm_id(employeeid);
-        employeeDTO.setFullname(sFullname);
-        employeeDTO.setUsername(sUsername);
-        employeeDTO.setPassword(sPassword);
-        employeeDTO.setBirthday(sBirth);
+        //Log.d("fullname_out_if", sFullname +" ");
+        if(sFullname != null && !sFullname.equals("")){
+            employeeDTO.setFullname(sFullname);
+            //Log.d("fullname_in_if", sFullname +" ");
+        }
+
+        if(sPassword != null && !sPassword.equals("")){
+            employeeDTO.setPassword(sPassword);
+            Log.d("password", sPassword +" ");
+        }
+
+        if(sBirth != null && !sBirth.equals("")){
+            employeeDTO.setBirthday(sBirth);
+        }
+
+        if(sPhone != null && !sPhone.equals("")){
+            employeeDTO.setPhone(sFullname);
+        }
+        if(sStartDay != null && !sStartDay.equals("")){
+            employeeDTO.setStart_date(sStartDay);
+        }
         employeeDTO.setSex(sGender);
-        employeeDTO.setPhone(sPhone);
-        employeeDTO.setStart_date(sStartDay);
-        employeeDTO.setStatus(status);
-        employeeDTO.setType(type);
 
         boolean result = employeeDAO.EditEmployee(employeeDTO);
         if(result){
@@ -168,8 +194,9 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         }else{
             Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editfaild), Toast.LENGTH_SHORT).show();
         }
-
     }
+
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -177,6 +204,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
             case R.id.btnAccept:
                 if(employeeid != 0){
                     //sua nhan vien
+                    btnUpgradeManager.setVisibility(View.VISIBLE);
                     EditEmployee();
                 }else{
                     //them moi nhan vien
@@ -187,6 +215,9 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
             case R.id.btnCancel:
                 finish();
                 break;
+            case R.id.btnUpgradeManager:
+                Toast.makeText(Add_New_Employee_Activity.this,"Click Upgrade rồi nè", Toast.LENGTH_SHORT).show();
+                ;break;
         }
     }
     @Override

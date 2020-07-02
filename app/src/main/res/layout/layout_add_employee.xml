@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Thêm nhân viên"
         android:layout_centerHorizontal="true"
-        android:padding="@dimen/size10dp"
-        android:layout_margin="@dimen/size10dp"
+
         android:textStyle="bold"
         android:textSize="@dimen/size30sp"
         />
@@ -75,28 +74,43 @@
             android:singleLine="true"
             />
 
-        <RadioGroup
-            android:id="@+id/rgGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/size50dp"
+                >
 
-            <RadioButton
-                android:id="@+id/rdMale"
+                <RadioButton
+                    android:id="@+id/rdMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:checked="true"
+                    />
+
+                <RadioButton
+                    android:id="@+id/rdFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    />
+            </RadioGroup>
+            <Button
+                android:id="@+id/btnUpgradeManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/male"
-                android:checked="true"
+                android:text="@string/becomeManager"
+                android:padding="@dimen/size10dp"
+                android:layout_margin="@dimen/size10dp"
+                android:background="@color/colorOrganButton"
                 />
-
-            <RadioButton
-                android:id="@+id/rdFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/female"
-                />
-        </RadioGroup>
+        </LinearLayout>
         <EditText
             android:id="@+id/edPhone"
             android:layout_width="match_parent"
@@ -166,6 +180,7 @@
                 android:text="Thoát"
 
                 />
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

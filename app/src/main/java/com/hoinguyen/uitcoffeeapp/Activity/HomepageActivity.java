@@ -3,9 +3,11 @@ package com.hoinguyen.uitcoffeeapp.Activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowEmployeeAdapter;
+import com.hoinguyen.uitcoffeeapp.DTO.EmployeeDTO;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowEmployeeFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowMenuFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowTableFragment;
@@ -31,6 +34,8 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     Toolbar toolbar;
     TextView txtFullname_emp_navigation;
     FragmentManager fragmentManager;
+    EmployeeDTO employeeDTO;
+    int sTypeEm;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -41,7 +46,10 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationview_homepage);
         toolbar = findViewById(R.id.toolbar);
-
+//
+//        employeeDTO = new EmployeeDTO();
+//        Log.d("typeem", employeeDTO.getType() +"");
+//        Log.d("typeem", employeeDTO.getFullname() +"");
         //findviewbyID ở một layout khác
         View view = navigationView.getHeaderView(0);
         txtFullname_emp_navigation = view.findViewById(R.id.txtNameofEmployeeNavigation);
@@ -72,8 +80,12 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         //set sự kiện click cho Navigation menu
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent intent = getIntent();
-        String sUserName = intent.getStringExtra("username");
+        Intent intent1 = getIntent();
+        String sUserName = intent1.getStringExtra("username");
+        Intent intent2 = getIntent();
+        sTypeEm = intent2.getIntExtra("typeem", 0);
+        //Log.d("typem", "type la: " + sTypeEm  );
+
         txtFullname_emp_navigation.setText("Hi, " + sUserName);
 
         fragmentManager = getSupportFragmentManager();
@@ -108,14 +120,27 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 ;break;
+//            case R.id.itProfile:
+//                FragmentTransaction tranShowEmployee = fragmentManager.beginTransaction();
+//                ShowEmployeeFragment showEmployeeFragment = new ShowEmployeeFragment();
+//                tranShowEmployee.replace(R.id.content, showEmployeeFragment);
+//                tranShowEmployee.commit();
+//
+//                menuItem.setChecked(true);
+//                drawerLayout.closeDrawers();
+//                ;break;
             case R.id.itProfile:
-                FragmentTransaction tranShowEmployee = fragmentManager.beginTransaction();
-                ShowEmployeeFragment showEmployeeFragment = new ShowEmployeeFragment();
-                tranShowEmployee.replace(R.id.content, showEmployeeFragment);
-                tranShowEmployee.commit();
+               if(sTypeEm == 0){
+                   FragmentTransaction tranShowEmployee = fragmentManager.beginTransaction();
+                   ShowEmployeeFragment showEmployeeFragment = new ShowEmployeeFragment();
+                   tranShowEmployee.replace(R.id.content, showEmployeeFragment);
+                   tranShowEmployee.commit();
 
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
+                   menuItem.setChecked(true);
+                   drawerLayout.closeDrawers();
+               }else{
+                   Toast.makeText(HomepageActivity.this, getResources().getString(R.string.younotadmin), Toast.LENGTH_SHORT).show();
+               }
                 ;break;
         }
         return false;

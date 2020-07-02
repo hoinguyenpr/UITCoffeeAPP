@@ -10,7 +10,7 @@
         android:checked="true"/>
     <item
         android:id="@+id/itProfile"
-        android:title="@string/profile"
+        android:title="@string/employeemanagement"
         android:icon="@drawable/waiter_48px"
         />
     <item

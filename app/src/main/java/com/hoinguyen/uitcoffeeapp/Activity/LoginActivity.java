@@ -2,6 +2,7 @@ package com.hoinguyen.uitcoffeeapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,10 +55,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String sPassword = edPassword.getText().toString();
        int result =  employeeDAO.EmployeeLogin(sUsername, sPassword);
        if(result != 0){
+           int stype = employeeDAO.getTypeByID(result);
+           //Log.d("typeid", "type" + stype);
            //Chuyển đến actvitiy Homepage sau khi login success
            Intent iHomePage = new Intent(LoginActivity.this, HomepageActivity.class);
-           //put giá trị
+           //put giá trị cho HomepageActivity
            iHomePage.putExtra("username", edUsername.getText().toString());
+           iHomePage.putExtra("typeem", stype);
            iHomePage.putExtra("emid", result);
            startActivity(iHomePage);
        }else{
