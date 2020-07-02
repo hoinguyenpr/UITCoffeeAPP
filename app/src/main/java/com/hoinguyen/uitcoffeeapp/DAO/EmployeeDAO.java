@@ -167,7 +167,29 @@ public class EmployeeDAO {
         return type;
     }
 
+    public int UpgradeToManagerByID(int id){
+        int type = 1;
+        String query = "select type from employee where em_id = " + id;
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            type = cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_employee_type ));
+            cursor.moveToNext();
+        }
+        return type;
+    }
 
+    public boolean updateEmployeeTypeByID(int employeeID){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_employee_type, 0);
+
+        long check = sqLiteDatabase.update(CreateDatabase.TB_employee, contentValues, CreateDatabase.TB_employee_emid + " = '" + employeeID + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 }

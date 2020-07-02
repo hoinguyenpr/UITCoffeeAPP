@@ -25,6 +25,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
     RadioGroup rgGender;
     RadioButton rdMale, rdFemale;
     TextView txtCreateEmployeeTitle;
+    int sType;
 
     int sGender;
     int employeeid = 0;
@@ -56,7 +57,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         edBirth.setOnFocusChangeListener(this);
         //edStartDay.setOnFocusChangeListener(this);
 
-        // vi 2 dong nay ma mat 1 tuan fix, discu
+        // vi 2 dong nay ma mat 1 tuan fix, chan vcc
         btnAccept.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnUpgradeManager.setOnClickListener(this);
@@ -67,12 +68,18 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         employeeDAO = new EmployeeDAO(this);
 
         employeeid = getIntent().getIntExtra("employeeid", 0);
+        //sType = employeeDAO.getTypeByID(employeeid);
+
         if(employeeid != 0){
-            btnUpgradeManager.setVisibility(View.VISIBLE);
+
             txtCreateEmployeeTitle.setText(getResources().getString(R.string.updateemployee));
             edUsername.setText(getResources().getString(R.string.unabletoupdate));
             edUsername.setFocusable(false);
             EmployeeDTO employeeDTO = employeeDAO.getEmployeeByID(employeeid);
+            sType = employeeDTO.getType();
+            if(sType == 1){
+                btnUpgradeManager.setVisibility(View.VISIBLE);
+            }
 
             if(employeeDTO.getFullname() != null && employeeDTO.getFullname().equals("")){
                 edFullName.setText(employeeDTO.getFullname());
@@ -173,7 +180,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
 
         if(sPassword != null && !sPassword.equals("")){
             employeeDTO.setPassword(sPassword);
-            Log.d("password", sPassword +" ");
+            //Log.d("password", sPassword +" ");
         }
 
         if(sBirth != null && !sBirth.equals("")){
@@ -204,7 +211,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
             case R.id.btnAccept:
                 if(employeeid != 0){
                     //sua nhan vien
-                    btnUpgradeManager.setVisibility(View.VISIBLE);
+                        btnUpgradeManager.setVisibility(View.VISIBLE);
                     EditEmployee();
                 }else{
                     //them moi nhan vien
@@ -216,7 +223,14 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
                 finish();
                 break;
             case R.id.btnUpgradeManager:
-                Toast.makeText(Add_New_Employee_Activity.this,"Click Upgrade rồi nè", Toast.LENGTH_SHORT).show();
+                boolean result = employeeDAO.updateEmployeeTypeByID(employeeid);
+                if(result){
+                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editsucess), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editfaild), Toast.LENGTH_SHORT).show();
+                }
+                //Log.d("emid", "emid: " + employeeid );
+                //Toast.makeText(Add_New_Employee_Activity.this,"Click Upgrade rồi nè", Toast.LENGTH_SHORT).show();
                 ;break;
         }
     }
