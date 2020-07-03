@@ -63,7 +63,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
            iHomePage.putExtra("username", edUsername.getText().toString());
            iHomePage.putExtra("typeem", stype);
            iHomePage.putExtra("emid", result);
+           iHomePage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
            startActivity(iHomePage);
+           finish();
        }else{
            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại  ", Toast.LENGTH_LONG).show();
        }
@@ -78,9 +80,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (id){
             case R.id.btnlgLogin:
                 clickBtnLogin();
-                ;break;
+                break;
             case R.id.btnlgReg:
-                clickBtnReg();
+                clickBtnReg()
                 ;break;
         }
     }

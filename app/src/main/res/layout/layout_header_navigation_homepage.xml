@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size200dp"
-    android:background="@drawable/coffeeview"
+    android:background="@drawable/user_cover"
     >
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/logoNavigation"
@@ -11,7 +11,7 @@
         android:layout_width="80dp"
         android:src="@drawable/chef_96px"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/size20dp"
+        android:layout_marginLeft="40dp"
         >
     </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -22,7 +22,8 @@
         android:layout_below = "@id/logoNavigation"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorOrganButton"
         android:layout_alignLeft="@+id/logoNavigation"
         android:layout_alignStart="@+id/logoNavigation"
         />

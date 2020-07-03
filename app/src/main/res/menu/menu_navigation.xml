@@ -8,23 +8,25 @@
         android:title="@string/homepage"
         android:icon="@drawable/home_48px"
         android:checked="true"/>
+        <item
+            android:id="@+id/itMenu"
+            android:title="@string/menu"
+            android:icon="@drawable/food_and_wine_48px"
+            />
     <item
         android:id="@+id/itProfile"
         android:title="@string/employeemanagement"
         android:icon="@drawable/waiter_48px"
         />
+
     <item
-        android:id="@+id/itMenu"
-        android:title="@string/menu"
-        android:icon="@drawable/food_and_wine_48px"
-        />
-    <item
-        android:id="@+id/itStatiscal"
-        android:title="@string/statiscal"
+        android:id="@+id/itRevenue"
+        android:title="@string/revenue"
         android:icon="@drawable/profit_48px"
         />
     <item
-        android:title="@string/setting"
+        android:id="@+id/itExitApp"
+        android:title="@string/exit"
         android:icon="@drawable/settings_48px"
         />
     </group>

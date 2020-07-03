@@ -45,6 +45,7 @@ public class OrderDAO {
         return orderid;
     }
 
+
     public boolean checkFoodAlreayExist(int orderid, int foodid){
         String sqlQuery = "select * from " + CreateDatabase.TB_orderdetail + " where " + CreateDatabase.TB_orderdetail_foodid +
                 " = " + foodid + " and " + CreateDatabase.TB_orderdetail_orderid + " = " + orderid;

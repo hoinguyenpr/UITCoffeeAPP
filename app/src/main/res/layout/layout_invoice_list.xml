@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size10dp"
+        android:background="@color/backgroundLogin"
+        android:orientation="horizontal"
+        android:weightSum="8"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="HĐ"
+            android:layout_weight="1"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nhân viên"
+            android:layout_weight="2"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tổng giá"
+            android:layout_weight="2"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Thời gian"
+            android:layout_weight="3"
+            android:textSize="@dimen/size18sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gvInvoiceList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:numColumns="1"
+        >
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/txtTotalRevenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Doanh thu: "
+        android:layout_marginLeft="@dimen/size10dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/size18sp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnExitInvoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/exit"
+            android:background="@color/colorOrganButton"
+            android:layout_margin="@dimen/size10dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

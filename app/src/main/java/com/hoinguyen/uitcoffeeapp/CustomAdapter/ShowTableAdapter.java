@@ -161,7 +161,7 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
 //                    Log.d("manv", emid +"");
                     Calendar calendar = Calendar.getInstance();
                     //Format calendar
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm:ss");
                     String dateOrder  = dateFormat.format(calendar.getTime());
 
                     OrderDTO orderDTO = new OrderDTO();
@@ -192,6 +192,9 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
                 Intent iPayment = new Intent(context, Activity_Payment.class);
                 iPayment.putExtra("tableid", tableID);
                 context.startActivity(iPayment);
+                ;break;
+            case R.id.imgHint:
+                hintButton();
                 ;break;
         }
     }

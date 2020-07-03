@@ -15,4 +15,5 @@
     <dimen name="size50dp">50dp</dimen>
     <dimen name="size15dp">15dp</dimen>
     <dimen name="size80dp">80dp</dimen>
+    <dimen name="size4dp">4dp</dimen>
 </resources>

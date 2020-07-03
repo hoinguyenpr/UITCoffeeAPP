@@ -26,29 +26,29 @@
         android:id="@+id/imgOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/goimon"
+        android:src="@drawable/plus_food"
         android:layout_below="@id/imgTable"
-        android:layout_margin="@dimen/size6dp"
+        android:layout_margin="@dimen/size4dp"
         android:visibility="invisible"
         />
     <ImageView
         android:id="@+id/imgPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/thanhtoan"
+        android:src="@drawable/payment_food"
         android:layout_below="@id/imgTable"
         android:layout_toRightOf="@id/imgOrder"
-        android:layout_margin="@dimen/size6dp"
+        android:layout_margin="@dimen/size4dp"
         android:visibility="invisible"
         />
     <ImageView
         android:id="@+id/imgHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/anbutton"
+        android:src="@drawable/cancel_button"
         android:layout_below="@id/imgTable"
         android:layout_toRightOf="@id/imgPayment"
-        android:layout_margin="@dimen/size6dp"
+        android:layout_margin="@dimen/size4dp"
         android:visibility="invisible"
         />
 </RelativeLayout>

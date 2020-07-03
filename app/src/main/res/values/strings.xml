@@ -57,5 +57,8 @@
     <string name="editfaild">Sửa thất bại</string>
     <string name="becomeManager">Nâng cấp quản lý</string>
     <string name="younotadmin">Bạn không phải là quản lý</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="revenue">Quản lý doanh thu</string>
+    <string name="totorevenue">Doanh thu: </string>
 
 </resources>

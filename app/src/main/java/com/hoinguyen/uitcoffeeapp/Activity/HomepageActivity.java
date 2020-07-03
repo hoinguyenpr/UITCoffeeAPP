@@ -113,7 +113,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
             case R.id.itMenu:
                 FragmentTransaction tranShowMenu = fragmentManager.beginTransaction();
                 ShowMenuFragment showMenuFragment = new ShowMenuFragment();
-                tranShowMenu.replace(R.id.content, showMenuFragment);
+                tranShowMenu.replace(R.id.content, showMenuFragment, null).addToBackStack(null);
                 tranShowMenu.commit();
 
                 //đóng menu sau khi click
@@ -133,16 +133,27 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                if(sTypeEm == 0){
                    FragmentTransaction tranShowEmployee = fragmentManager.beginTransaction();
                    ShowEmployeeFragment showEmployeeFragment = new ShowEmployeeFragment();
-                   tranShowEmployee.replace(R.id.content, showEmployeeFragment);
+                   //back not destroy :))))
+                   tranShowEmployee.replace(R.id.content, showEmployeeFragment, null).addToBackStack(null);
                    tranShowEmployee.commit();
-
                    menuItem.setChecked(true);
                    drawerLayout.closeDrawers();
                }else{
                    Toast.makeText(HomepageActivity.this, getResources().getString(R.string.younotadmin), Toast.LENGTH_SHORT).show();
                }
                 ;break;
+            case R.id.itExitApp:
+                Intent intentExit = new Intent(HomepageActivity.this, LoginActivity.class );
+                startActivity(intentExit);
+                finish();
+                ;break;
+            case R.id.itRevenue:
+                Intent iRevenue = new Intent(HomepageActivity.this, View_Invoice_Activity.class);
+                //iPayment.putExtra("tableid", tableID);
+                startActivity(iRevenue);
+                ;break;
         }
         return false;
     }
+
 }
