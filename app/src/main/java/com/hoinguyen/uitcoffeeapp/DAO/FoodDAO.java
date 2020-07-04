@@ -74,4 +74,51 @@ public class FoodDAO {
         }
         return  foodDTOList;
     }
+
+    public boolean deleteFoodByID(int foodid){
+        long check = sqLiteDatabase.delete(CreateDatabase.TB_food, CreateDatabase.TB_food_foodid + " = " + foodid, null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean updateNameFoodByID(int foodid, String name){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_food_namefood, name);
+        long check = sqLiteDatabase.update(CreateDatabase.TB_food, contentValues, CreateDatabase.TB_food_foodid + " = '" + foodid + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean updatePriceFoodByID(int foodid, int price){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CreateDatabase.TB_food_price, price);
+        long check = sqLiteDatabase.update(CreateDatabase.TB_food, contentValues, CreateDatabase.TB_food_foodid + " = '" + foodid + " ' ", null);
+        if(check != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public FoodDTO getFoodByID(int foodid){
+        FoodDTO foodDTO = new FoodDTO();
+        String sqlQuery = "select * from food where food_id = " + foodid;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            foodDTO.setFood_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_foodid)));
+            foodDTO.setCategory_id(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_categoryid)));
+            foodDTO.setName_food(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_food_namefood)));
+            foodDTO.setFood_price(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_price)));
+            foodDTO.setImage_food(cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_food_image)));
+            foodDTO.setFood_status(cursor.getInt(cursor.getColumnIndex(CreateDatabase.TB_food_status)));
+            cursor.moveToNext();
+        }
+        return foodDTO;
+    }
 }
+

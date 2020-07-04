@@ -62,5 +62,6 @@
     <string name="totorevenue">Doanh thu: </string>
     <string name="username_already_exsists">Tên người dùng đã tồn tại</string>
     <string name="name_table_already_exsists">Tên bàn đã tồn tại</string>
+    <string name="cancel">Hủy</string>
 
 </resources>

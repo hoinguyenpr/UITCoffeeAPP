@@ -58,7 +58,9 @@
         <activity android:name=".Activity.View_Invoice_Activity">
 
         </activity>
+        <activity android:name=".Activity.Activity_Edit_Food">
 
+        </activity>
 
     </application>
 
