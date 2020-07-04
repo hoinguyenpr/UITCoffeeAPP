@@ -14,22 +14,8 @@ import com.hoinguyen.uitcoffeeapp.R;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-    //Ngày bị quá cũ
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        Calendar calendar = Calendar.getInstance();
-//        int iNam = calendar.get(Calendar.YEAR);
-//        int iThang = calendar.get(Calendar.MONTH);
-//        int iNgay = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//        return new DatePickerDialog(getActivity(),this,iNgay,iThang,iNam);
-//    }
-    /*
-    Code nguồn: https://stackoverflow.com/questions/33051236/android-datepickerdialog-set-min-and-max-date-for-selection
-    Vấn không chỉnh được min, max nhưng đưa được về ngày hiện tại
-     */
+public class DatePickerFragmentStartDay extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -46,18 +32,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         } catch (Exception e) {
             e.printStackTrace();
         }
-        dialog.getDatePicker().updateDate(2005,1,1);
+        //dialog.getDatePicker().setMinDate(2020);
         return dialog;
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        EditText edBirth = getActivity().findViewById(R.id.edBirth);
+        EditText edBirth = getActivity().findViewById(R.id.edStartDay);
         String sDate_birth = dayOfMonth + "/" + (month + 1) + "/" + year;
         edBirth.setText(sDate_birth);
-//
-//        EditText edStartDay = getActivity().findViewById(R.id.edStartDay);
-//        String sDate_start = dayOfMonth + "/" + (month + 1) + "/" + year;
-//        edStartDay.setText(sDate_start);
     }
 }

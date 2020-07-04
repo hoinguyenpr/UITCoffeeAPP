@@ -43,14 +43,19 @@ public class Activity_Add_Table extends AppCompatActivity implements View.OnClic
 
         tableDTO.setTable_name(sNameTable);
 
-        if(sNameTable != null && !sNameTable.equals("")){
-            boolean result = tableDAO.AddTable(tableDTO);
-            Intent intent = new Intent();
-            intent.putExtra("Result add table", result);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+        if(tableDAO.checkTableName(tableDTO.getTable_name()))
+        {
+            Toast.makeText(Activity_Add_Table.this,getResources().getString(R.string.name_table_already_exsists), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(Activity_Add_Table.this, getResources().getString(R.string.failinfo), Toast.LENGTH_SHORT).show();
+            if(sNameTable != null && !sNameTable.equals("")){
+                boolean result = tableDAO.AddTable(tableDTO);
+                Intent intent = new Intent();
+                intent.putExtra("Result add table", result);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }else{
+                Toast.makeText(Activity_Add_Table.this, getResources().getString(R.string.failinfo), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

@@ -40,14 +40,19 @@ public class Activity_Edit_Table extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         String nameoftable = edEditTableName.getText().toString();
-        if(nameoftable.trim().equals("") || nameoftable.trim() != null){
-            boolean check = tableDAO.updateTableNameByID(tableid, nameoftable);
-            Intent intent = new Intent();
-            intent.putExtra("check", check);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+        if(tableDAO.checkTableName(nameoftable)){
+            Toast.makeText(Activity_Edit_Table.this,getResources().getString(R.string.name_table_already_exsists), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(Activity_Edit_Table.this, getResources().getString(R.string.notifyplsenterdata),Toast.LENGTH_SHORT).show();
+            if(nameoftable.trim().equals("") || nameoftable.trim() != null){
+                boolean check = tableDAO.updateTableNameByID(tableid, nameoftable);
+                Intent intent = new Intent();
+                intent.putExtra("check", check);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }else{
+                Toast.makeText(Activity_Edit_Table.this, getResources().getString(R.string.notifyplsenterdata),Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 }

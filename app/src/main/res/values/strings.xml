@@ -60,5 +60,7 @@
     <string name="logout">Đăng xuất</string>
     <string name="revenue">Quản lý doanh thu</string>
     <string name="totorevenue">Doanh thu: </string>
+    <string name="username_already_exsists">Tên người dùng đã tồn tại</string>
+    <string name="name_table_already_exsists">Tên bàn đã tồn tại</string>
 
 </resources>

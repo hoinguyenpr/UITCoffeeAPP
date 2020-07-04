@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.hoinguyen.uitcoffeeapp.DAO.EmployeeDAO;
 import com.hoinguyen.uitcoffeeapp.DTO.EmployeeDTO;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.DatePickerFragment;
+import com.hoinguyen.uitcoffeeapp.FragmentApp.DatePickerFragmentStartDay;
 import com.hoinguyen.uitcoffeeapp.R;
 
 public class Add_New_Employee_Activity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener  {
@@ -55,7 +56,7 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
 
         //
         edBirth.setOnFocusChangeListener(this);
-        //edStartDay.setOnFocusChangeListener(this);
+        edStartDay.setOnFocusChangeListener(this);
 
         // vi 2 dong nay ma mat 1 tuan fix, chan vcc
         btnAccept.setOnClickListener(this);
@@ -146,11 +147,16 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
             employeeDTO.setStatus(status);
             employeeDTO.setType(type);
 
-            long result = employeeDAO.AddEmployee(employeeDTO);
-            if(result > 0){
-                Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
+            boolean checkExist = employeeDAO.checkUserName(employeeDTO.getUsername());
+            if(checkExist){
+                Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.username_already_exsists), Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
+                long result = employeeDAO.AddEmployee(employeeDTO);
+                if(result > 0){
+                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -242,16 +248,16 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
                 if(hasFocus){
                     //xuat popup birthday;
                     DatePickerFragment datePickerFragment = new DatePickerFragment();
-                    datePickerFragment.show(getSupportFragmentManager(),"Ngay sinh");
-                };
+                    datePickerFragment.show(getSupportFragmentManager(),"Birthday");
+                }
                 break;
-//            case R.id.edStartDay:
-//                if(hasFocus){
-//                    //xuat popup birthday;
-//                    DatePickerFragment datePickerFragment = new DatePickerFragment();
-//                    datePickerFragment.show(getFragmentManager(),"Ngày Bat dau");
-//                };
-//                break;
+            case R.id.edStartDay:
+                if(hasFocus){
+                    //xuat popup birthday;
+                    DatePickerFragmentStartDay datePickerFragmentStartDay = new DatePickerFragmentStartDay();
+                    datePickerFragmentStartDay.show(getSupportFragmentManager(),"Startday");
+                }
+                break;
 
         }
     }

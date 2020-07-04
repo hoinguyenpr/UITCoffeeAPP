@@ -47,8 +47,18 @@ public class EmployeeDAO {
         }else{
             return false;
         }
-
     }
+    //hàm kiểm tra tên đăng nhập tồn tại hay không
+    public boolean checkUserName(String userName){
+        String sqlQuery = "select * from employee where username = " + '"' +userName + '"' ;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        if(cursor.getCount() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     //hàm kiểm tra đăng nhập
     public int EmployeeLogin(String username, String password) {
         String query = "SELECT * FROM " + CreateDatabase.TB_employee + " WHERE " + CreateDatabase.TB_employee_username + " = '" + username +

@@ -27,6 +27,8 @@ import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowMenuFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowTableFragment;
 import com.hoinguyen.uitcoffeeapp.R;
 
+import java.util.List;
+
 
 public class HomepageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -109,6 +111,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
                 //đóng menu sau khi click
                 menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
+
                 ;break;
             case R.id.itMenu:
                 FragmentTransaction tranShowMenu = fragmentManager.beginTransaction();

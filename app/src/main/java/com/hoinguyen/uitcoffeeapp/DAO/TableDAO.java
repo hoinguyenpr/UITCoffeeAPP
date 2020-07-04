@@ -71,6 +71,7 @@ public class TableDAO {
         }
     }
 
+
     public boolean deleteTableByID(int tableID){
         long check = sqLiteDatabase.delete(CreateDatabase.TB_table, CreateDatabase.TB_table_tableid + " = " + tableID, null);
         if(check != 0){
@@ -92,5 +93,15 @@ public class TableDAO {
         }
     }
 
+    //hàm kiểm tra tên đăng nhập tồn tại hay không
+    public boolean checkTableName(String tableName){
+        String sqlQuery = "select * from t_table where table_name = " + '"' + tableName + '"' ;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        if(cursor.getCount() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
