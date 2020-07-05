@@ -22,7 +22,7 @@ public class EmployeeDAO {
     }
 
     //hàm thêm nhân viên
-    public long AddEmployee(EmployeeDTO employeeDTO){
+    public boolean AddEmployee(EmployeeDTO employeeDTO){
         ContentValues contentValues = new ContentValues();
         contentValues.put(CreateDatabase.TB_employee_fullname, employeeDTO.getFullname());
         contentValues.put(CreateDatabase.TB_employee_username, employeeDTO.getUsername());
@@ -35,7 +35,11 @@ public class EmployeeDAO {
         contentValues.put(CreateDatabase.TB_employee_status, employeeDTO.getStatus());
 
         long result = sqLiteDatabase.insert(CreateDatabase.TB_employee, null, contentValues);
-        return result;
+        if(result != 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //hàm kiểm tra có nhân viên nào không
@@ -48,6 +52,13 @@ public class EmployeeDAO {
             return false;
         }
     }
+
+    public int CountEmployee(){
+        String query = "SELECT * FROM " + CreateDatabase.TB_employee;
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        return cursor.getCount();
+    }
+
     //hàm kiểm tra tên đăng nhập tồn tại hay không
     public boolean checkUserName(String userName){
         String sqlQuery = "select * from employee where username = " + '"' +userName + '"' ;

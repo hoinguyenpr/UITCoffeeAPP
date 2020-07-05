@@ -79,11 +79,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id){
             case R.id.btnlgLogin:
+                //Log.d("countem", "onClick: " + employeeDAO.CountEmployee());
                 clickBtnLogin();
                 break;
             case R.id.btnlgReg:
-                clickBtnReg()
-                ;break;
+                clickBtnReg();
+                break;
         }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">coffeapp</string>
+    <string name="app_name">1997Coffee</string>
     <string name="username">Tên đăng nhập</string>
     <string name="password">Mật khẩu</string>
     <string name="login">Đăng nhập</string>
@@ -33,7 +33,7 @@
     <string name="nameoffood">Tên món ăn</string>
     <string name="food_price">Giá tiền</string>
     <string name="table">Bàn</string>
-    <string name="addcategory">Thêm thoại thực đơn</string>
+    <string name="addcategory">Loại thực đơn</string>
     <string name="category">Loại thực đơn</string>
     <string name="notifyplsenterdata">Vui lòng nhập dữ liệu</string>
     <string name="notify_add_success">Thêm thành công</string>

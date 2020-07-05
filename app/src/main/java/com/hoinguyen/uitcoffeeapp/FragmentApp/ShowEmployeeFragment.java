@@ -1,7 +1,9 @@
 package com.hoinguyen.uitcoffeeapp.FragmentApp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +28,8 @@ import com.hoinguyen.uitcoffeeapp.R;
 import java.util.List;
 
 public class ShowEmployeeFragment extends Fragment {
+    public static int REQUEST_CODE_ADD = 111;
+    public static int REQUEST_CODE_EDIT = 16;
 
     ListView listEmployee;
     EmployeeDAO employeeDAO;
@@ -78,7 +82,8 @@ public class ShowEmployeeFragment extends Fragment {
             case R.id.itEdit:
                 Intent iRegister = new Intent(getActivity(), Add_New_Employee_Activity.class);
                 iRegister.putExtra("employeeid", employeeid);
-                startActivity(iRegister);
+                //startActivity(iRegister);
+                startActivityForResult(iRegister, REQUEST_CODE_EDIT);
                 ;break;
             case R.id.itDelete:
                 boolean check = employeeDAO.DeleteEmployeeByEmID(employeeid);
@@ -107,9 +112,39 @@ public class ShowEmployeeFragment extends Fragment {
         switch (id){
             case R.id.itAddEmployee:
                 Intent iRegister = new Intent(getActivity(), Add_New_Employee_Activity.class);
-                startActivity(iRegister);
+                //startActivity(iRegister);
+                startActivityForResult(iRegister, REQUEST_CODE_ADD);
                 ;break;
         }
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_EDIT){
+            if(resultCode == Activity.RESULT_OK){
+                Intent iResult = data;
+                boolean check = iResult.getBooleanExtra("editresult",false);
+                if(check){
+                    ShowEmployeeList();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.editsucess), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), getResources().getString(R.string.editfaild), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else if(requestCode == REQUEST_CODE_ADD){
+            if(resultCode == Activity.RESULT_OK){
+                Intent iResult = data;
+                boolean check = iResult.getBooleanExtra("addresult",false);
+                //Log.d("check_fragment", "onActivityResult: " + check);
+                if(check){
+                    ShowEmployeeList();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.hoinguyen.uitcoffeeapp.Activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -151,11 +153,14 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
             if(checkExist){
                 Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.username_already_exsists), Toast.LENGTH_SHORT).show();
             }else{
-                long result = employeeDAO.AddEmployee(employeeDTO);
-                if(result > 0){
-                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthanhcong), Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.themthatbai), Toast.LENGTH_SHORT).show();
+                boolean result = employeeDAO.AddEmployee(employeeDTO);
+                if(employeeDAO.CountEmployee() > 1){
+                    //Log.d("countem", "AcceptAddEmployee: " + employeeDAO.CountEmployee());
+                    Intent iAddEm = new Intent();
+                    iAddEm.putExtra("addresult", result);
+                    Log.d("check_activity", "onActivityResult: " + result);
+                    setResult(Activity.RESULT_OK, iAddEm);
+                    finish();
                 }
             }
         }
@@ -207,6 +212,11 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
         }else{
             Toast.makeText(Add_New_Employee_Activity.this,getResources().getString(R.string.editfaild), Toast.LENGTH_SHORT).show();
         }
+
+        Intent iEditEm = new Intent();
+        iEditEm.putExtra("editresult", result);
+        setResult(Activity.RESULT_OK, iEditEm);
+        finish();
     }
 
 
@@ -220,10 +230,12 @@ public class Add_New_Employee_Activity extends AppCompatActivity implements View
                         btnUpgradeManager.setVisibility(View.VISIBLE);
                     EditEmployee();
                 }else{
-                    //them moi nhan vien
                     AcceptAddEmployee();
+                    if(employeeDAO.CountEmployee() == 1){
+                        Intent iLogin = new Intent(Add_New_Employee_Activity.this, LoginActivity.class);
+                        startActivity(iLogin);
+                    }
                 }
-                ;
                 break;
             case R.id.btnCancel:
                 finish();
