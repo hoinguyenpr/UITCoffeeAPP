@@ -180,13 +180,16 @@ public class ShowTableAdapter extends BaseAdapter implements View.OnClickListene
 
                 FragmentTransaction tranMenutransaction = fragmentManager.beginTransaction();
                 ShowMenuFragment showMenuFragment = new ShowMenuFragment();
+
                 Bundle bDataMenu = new Bundle();
                 bDataMenu.putInt("tableid", tableID);
 
                 showMenuFragment.setArguments(bDataMenu);
+
                 tranMenutransaction.replace(R.id.content, showMenuFragment).addToBackStack("showtable");
                 tranMenutransaction.commit();
-                ;break;
+                Log.d("donecommit", "onClick: KKKKKKKK ");
+                break;
 
             case R.id.imgPayment:
                 Intent iPayment = new Intent(context, Activity_Payment.class);

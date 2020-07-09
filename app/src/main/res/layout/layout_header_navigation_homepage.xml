@@ -22,7 +22,6 @@
         android:layout_below = "@id/logoNavigation"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginLeft="10dp"
         android:textColor="@color/colorOrganButton"
         android:layout_alignLeft="@+id/logoNavigation"
         android:layout_alignStart="@+id/logoNavigation"

@@ -53,7 +53,7 @@
             android:textColorHint="@color/colorGray"
             android:padding="@dimen/size10dp"
             android:layout_margin="@dimen/size10dp"
-            android:drawableLeft="@drawable/password"
+            android:drawableLeft="@drawable/user"
             android:drawablePadding="@dimen/size10dp"
             android:textColor="@color/colorGray"
             android:singleLine="true"

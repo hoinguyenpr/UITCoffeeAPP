@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hoinguyen.uitcoffeeapp.CustomAdapter.ShowEmployeeAdapter;
+import com.hoinguyen.uitcoffeeapp.DAO.EmployeeDAO;
 import com.hoinguyen.uitcoffeeapp.DTO.EmployeeDTO;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowEmployeeFragment;
 import com.hoinguyen.uitcoffeeapp.FragmentApp.ShowMenuFragment;
@@ -38,6 +39,7 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
     FragmentManager fragmentManager;
     EmployeeDTO employeeDTO;
     int sTypeEm;
+    EmployeeDAO employeeDAO;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -88,7 +90,9 @@ public class HomepageActivity extends AppCompatActivity implements NavigationVie
         sTypeEm = intent2.getIntExtra("typeem", 0);
         //Log.d("typem", "type la: " + sTypeEm  );
 
-        txtFullname_emp_navigation.setText("Hi, " + sUserName);
+        employeeDAO = new EmployeeDAO(this);
+
+        txtFullname_emp_navigation.setText("Hi, " + employeeDAO.getFullnameByUserName(sUserName));
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction tranShowTable = fragmentManager.beginTransaction();

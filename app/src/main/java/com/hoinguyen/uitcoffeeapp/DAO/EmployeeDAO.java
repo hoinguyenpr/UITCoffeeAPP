@@ -187,7 +187,17 @@ public class EmployeeDAO {
         }
         return type;
     }
-
+    public String getFullnameByUserName(String username){
+        String fullname = "";
+        String sqlQuery = "select fullname from employee where username = " + "'" + username +"'";
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            fullname = cursor.getString(cursor.getColumnIndex(CreateDatabase.TB_employee_fullname));
+            cursor.moveToNext();
+        }
+        return fullname;
+    }
     public int UpgradeToManagerByID(int id){
         int type = 1;
         String query = "select type from employee where em_id = " + id;
